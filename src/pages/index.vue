@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const content = ref('<p></p>')
+</script>
+
 <template>
   <div class="text-left flex flex-col items-center">
     <div>
@@ -15,6 +19,8 @@
       <router-link to="/create" class="bg-blue-500 hover:bg-blue-600 p-2 font-bold">
         Create Webhook
       </router-link>
+      <br />
+      <!--<ReactField v-model="content" class="border-emb-dark-900 mt-5 bg-emb-dark-700 p-2" />-->
     </div>
   </div>
 </template>

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import axios from 'axios'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import Swal from 'sweetalert2'
 import { DiscordEmbed } from '~/types/DiscordEmbed'
 
-const props = defineProps<{ modelValue: DiscordEmbed | undefined }>()
+defineProps<{ modelValue: DiscordEmbed | undefined }>()
 const emit = defineEmits(['update:modelValue'])
 
 const loading = ref(false)
@@ -13,28 +12,29 @@ const loading = ref(false)
 const title = ref('')
 const webhook = ref('')
 const image = ref<string | undefined>()
-const reacts = ref<string[]>(['<:lemonbizz:763564057537282049>'])
+const reacts = ref<string[]>(['<:lemonbizz:763564057537282049> I\'m a Kappa'])
 const color = ref<number | undefined>()
 
-const getEmbed = () => {
+const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
   let desc = ''
-  for (let i = 0; i < reacts.value.length; i++)
-    desc += `${reacts.value[i]}\n`
+  const reactions = ogR ?? reacts.value
+  for (let i = 0; i < reactions.length; i++)
+    desc += `${reactions[i]}\n`
 
   const hook: DiscordEmbed = {
-    title: title.value,
-    description: desc,
+    title: og?.title ?? title.value,
+    description: og?.description ?? desc,
     image: {
-      url: image.value,
+      url: og?.image?.url ?? image.value,
     },
-    color: color.value,
+    color: og?.color ?? color.value,
   }
 
   emit('update:modelValue', hook)
 
   return hook
 }
-// https://discord.com/api/webhooks/903157332052160524/oySclo2EagTcXA3k9WRNGOmp6n4mKEWP0NDUdda6-JFaYUjutlwY8wgh3Ti8DtQKiaXI
+
 const addReact = () => {
   reacts.value.push('')
 }
@@ -43,9 +43,9 @@ const remReact = () => {
 }
 
 // Watchers
-watch(title, (n) => { getEmbed() })
-watch(image, (n) => { getEmbed() })
-watch(reacts, (n) => { getEmbed() })
+watch(title, (n) => { getEmbed({ title: n }) })
+watch(image, (n) => { getEmbed({ image: { url: n } }) })
+watch(reacts, (n) => { getEmbed({}, n) })
 
 const submit = async() => {
   loading.value = true
@@ -64,12 +64,16 @@ const submit = async() => {
 
   loading.value = false
 
-  const resp = data.value
+  // const resp = data.value
   await Swal.fire({
     title: 'Success!',
     text: 'Webhook triggered.',
     icon: 'success',
   })
+}
+
+const emoteUrl = (id) => {
+  return `https://cdn.discordapp.com/emojis/${id}`
 }
 </script>
 
