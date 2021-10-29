@@ -12,7 +12,7 @@ const loading = ref(false)
 const title = ref('')
 const webhook = ref('')
 const image = ref<string | undefined>()
-const reacts = ref<string[]>(['<:lemonbizz:763564057537282049> I\'m a Kappa'])
+const reacts = ref<any[]>([{}])
 const color = ref<number | undefined>()
 
 const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
