@@ -19,6 +19,7 @@ declare module 'vue' {
     Footer: typeof import('./components/Footer.vue')['default']
     Previewer: typeof import('./components/embeder/Previewer.vue')['default']
     README: typeof import('./components/README.md')['default']
+    Spinner: typeof import('./components/ui/Spinner.vue')['default']
     Tab: typeof import('./components/ui/Tab.vue')['default']
     Tabs: typeof import('./components/ui/Tabs.vue')['default']
     ViewWrapper: typeof import('./components/embeder/ViewWrapper.vue')['default']

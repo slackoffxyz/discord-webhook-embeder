@@ -5,6 +5,7 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import { install as DiscordMessageComponents } from '@discord-message-components/vue'
 import '@discord-message-components/vue/styles'
 import App from './App.vue'
+import './styles/sw.scss'
 
 // windicss layers
 import 'virtual:windi-base.css'

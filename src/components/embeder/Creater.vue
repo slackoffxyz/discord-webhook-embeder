@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import axios from 'axios'
 import { useAxios } from '@vueuse/integrations/useAxios'
+import Swal from 'sweetalert2'
 import { DiscordEmbed } from '~/types/DiscordEmbed'
 
 const props = defineProps<{ modelValue: DiscordEmbed | undefined }>()
 const emit = defineEmits(['update:modelValue'])
+
+const loading = ref(false)
 
 // Fields
 const title = ref('')
@@ -33,7 +36,7 @@ const getEmbed = () => {
 }
 // https://discord.com/api/webhooks/903157332052160524/oySclo2EagTcXA3k9WRNGOmp6n4mKEWP0NDUdda6-JFaYUjutlwY8wgh3Ti8DtQKiaXI
 const addReact = () => {
-  reacts.value.push('<:lemonbizz:763564057537282049> A Kappa')
+  reacts.value.push('')
 }
 const remReact = () => {
   reacts.value.pop()
@@ -45,18 +48,8 @@ watch(image, (n) => { getEmbed() })
 watch(reacts, (n) => { getEmbed() })
 
 const submit = async() => {
+  loading.value = true
   const embed = getEmbed()
-
-  /* const { data, isFinished } = useAxios('https://memeapi.bizzy.live/api/embeder/create', {
-    data: {
-      webhookUrl: webhook.value,
-      embed,
-    },
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  }) */
 
   const { data, isFinished } = useAxios(webhook.value, {
     data: {
@@ -69,9 +62,14 @@ const submit = async() => {
   })
   await until(isFinished).toBe(true)
 
+  loading.value = false
+
   const resp = data.value
-  if (resp?.length > 0)
-    alert('oof')
+  await Swal.fire({
+    title: 'Success!',
+    text: 'Webhook triggered.',
+    icon: 'success',
+  })
 }
 </script>
 
@@ -125,9 +123,12 @@ const submit = async() => {
           placeholder="React"
         />
       </div>
-      <button class="bg-blue-500 hover:bg-blue-600 p-2 font-bold mt-5 rounded-sm" @click="submit">
+      <button v-if="!loading" class="bg-blue-500 hover:bg-blue-600 p-2 font-bold mt-5 rounded-sm" @click="submit">
         Send
       </button>
+      <div v-else class="mt-2 flex flex-row items-center justify-center">
+        <Spinner />
+      </div>
     </div>
   </div>
 </template>

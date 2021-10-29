@@ -28,6 +28,8 @@ specifiers:
   pinia: ^2.0.0-rc.14
   pnpm: ^6.18.0
   prism-theme-vars: ^0.2.2
+  sass: ^1.43.4
+  sweetalert2: ^11.1.9
   typescript: ^4.4.4
   unplugin-auto-import: ^0.4.13
   unplugin-icons: ^0.12.16
@@ -58,6 +60,7 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.0-rc.14_typescript@4.4.4+vue@3.2.20
   prism-theme-vars: 0.2.2
+  sweetalert2: 11.1.9
   vue: 3.2.20
   vue-demi: 0.11.4_vue@3.2.20
   vue-i18n: 9.1.9_vue@3.2.20
@@ -80,11 +83,12 @@ devDependencies:
   markdown-it-link-attributes: 3.0.0
   markdown-it-prism: 2.2.1
   pnpm: 6.18.0
+  sass: 1.43.4
   typescript: 4.4.4
   unplugin-auto-import: 0.4.13_@vueuse+core@6.7.3+vite@2.6.10
   unplugin-icons: 0.12.16_db95163608a1914986a6b89b9234c90a
   unplugin-vue-components: 0.16.0_vite@2.6.10+vue@3.2.20
-  vite: 2.6.10
+  vite: 2.6.10_sass@1.43.4
   vite-plugin-inspect: 0.3.9_vite@2.6.10
   vite-plugin-md: 0.11.2_vite@2.6.10
   vite-plugin-pages: 0.18.1_db95163608a1914986a6b89b9234c90a
@@ -1558,7 +1562,7 @@ packages:
       '@rollup/pluginutils': 4.1.1
       debug: 4.3.2
       fast-glob: 3.2.7
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       vue-i18n: 9.1.9_vue@3.2.20
     transitivePeerDependencies:
       - supports-color
@@ -1881,7 +1885,7 @@ packages:
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
     dev: true
 
   /@volar/code-gen/0.28.7:
@@ -5769,6 +5773,14 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
+  /sass/1.43.4:
+    resolution: {integrity: sha512-/ptG7KE9lxpGSYiXn7Ar+lKOv37xfWsZRtFYal2QHNigyVQDx685VFT/h7ejVr+R8w7H4tmUgtulsKl5YpveOg==}
+    engines: {node: '>=8.9.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.2
+    dev: true
+
   /saxes/5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
@@ -6123,6 +6135,10 @@ packages:
       has-flag: 4.0.0
     dev: true
 
+  /sweetalert2/11.1.9:
+    resolution: {integrity: sha512-ox+BjtAbO8mJrbQH9TsNwMwLeTfV+ve33CVz/kKn5D/DhRiSqnw2rWL4HuBlh9Z4yqYlTD5viR5Z2K5D3avM7Q==}
+    dev: false
+
   /symbol-tree/3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
     dev: true
@@ -6447,7 +6463,7 @@ packages:
       webpack:
         optional: true
     dependencies:
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       webpack-virtual-modules: 0.4.3
     dev: true
 
@@ -6504,7 +6520,7 @@ packages:
       debug: 4.3.2
       sirv: 1.0.17
       ufo: 0.7.9
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6518,7 +6534,7 @@ packages:
       '@types/markdown-it': 12.2.3
       gray-matter: 4.0.3
       markdown-it: 12.2.0
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
     dev: true
 
   /vite-plugin-pages/0.18.1_db95163608a1914986a6b89b9234c90a:
@@ -6536,7 +6552,7 @@ packages:
       deep-equal: 2.0.5
       fast-glob: 3.2.7
       json5: 2.2.0
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       yaml: 2.0.0-8
     transitivePeerDependencies:
       - supports-color
@@ -6552,7 +6568,7 @@ packages:
       fast-glob: 3.2.7
       pretty-bytes: 5.6.0
       rollup: 2.58.0
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       workbox-build: 6.3.0
       workbox-window: 6.3.0
     transitivePeerDependencies:
@@ -6570,7 +6586,7 @@ packages:
       '@vue/compiler-sfc': 3.2.16
       debug: 4.3.2
       fast-glob: 3.2.7
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       vue: 3.2.20
       vue-router: 4.0.12_vue@3.2.20
     transitivePeerDependencies:
@@ -6585,7 +6601,7 @@ packages:
       '@windicss/plugin-utils': 1.4.12
       chalk: 4.1.2
       debug: 4.3.2
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       windicss: 3.1.9
     transitivePeerDependencies:
       - supports-color
@@ -6616,7 +6632,7 @@ packages:
       html-minifier: 4.0.0
       jsdom: 17.0.0
       prettier: 2.4.1
-      vite: 2.6.10
+      vite: 2.6.10_sass@1.43.4
       vue: 3.2.20
       vue-router: 4.0.12_vue@3.2.20
       yargs: 17.2.1
@@ -6627,7 +6643,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /vite/2.6.10:
+  /vite/2.6.10_sass@1.43.4:
     resolution: {integrity: sha512-XbevwpDJMs3lKiGEj0UQScsOCpwHIjFgfzPnFVkPgnxsF9oPv1uGyckLg58XkXv6LnO46KN9yZqJzINFmAxtUg==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -6647,6 +6663,7 @@ packages:
       postcss: 8.3.8
       resolve: 1.20.0
       rollup: 2.58.0
+      sass: 1.43.4
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
