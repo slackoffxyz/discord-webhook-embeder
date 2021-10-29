@@ -1,64 +1,25 @@
-<script setup lang="ts">
-import { useUserStore } from '~/stores/user'
-
-const user = useUserStore()
-const name = ref(user.savedName)
-
-const router = useRouter()
-const go = () => {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
-}
-
-const { t } = useI18n()
-</script>
-
 <template>
-  <div>
-    <p class="text-4xl">
-      <carbon-campsite class="inline-block" />
-    </p>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em class="text-sm opacity-75">{{ t('intro.desc') }}</em>
-    </p>
-
-    <div class="py-4" />
-
-    <input
-      id="input"
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      :aria-label="t('intro.whats-your-name')"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
+  <div class="text-left flex flex-col items-center">
     <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
+      <h1 class="text-3xl">
+        Discord Reaction Embed Creator
+      </h1>
+      Long name aside, this tool allows you to create a Discord embed then post it via a Webhook URL to your discord server.<br /><br />
+      Before proceeding, you'll want to head over to your Discord server and create a Webhook.<br />
+      To do so, see "Making a Webhook" section <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks"
+      >Here</a>.<br />
+      Once you've done this, click "Copy Webhook URL" and paste it into the Webhook box on the creator page.
+      <br /><br />
+      <router-link to="/create" class="bg-blue-500 hover:bg-blue-600 p-2 font-bold">
+        Create Webhook
+      </router-link>
     </div>
   </div>
 </template>
 
 <route lang="yaml">
 meta:
-  layout: home
+  layout: default
 </route>

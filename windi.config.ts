@@ -12,6 +12,13 @@ export default defineConfig({
   ],
   theme: {
     extend: {
+      colors: {
+        'blurple': '#7289DA',
+        'discord-dark': '#36393e',
+        'emb-dark-700': '#282c34',
+        'emb-dark-800': '#1b1e24',
+        'emb-dark-900': '#16181d',
+      },
       typography: {
         DEFAULT: {
           css: {

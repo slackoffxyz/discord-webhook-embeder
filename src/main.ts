@@ -2,6 +2,8 @@
 import { ViteSSG } from 'vite-ssg'
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'virtual:generated-layouts'
+import { install as DiscordMessageComponents } from '@discord-message-components/vue'
+import '@discord-message-components/vue/styles'
 import App from './App.vue'
 
 // windicss layers
@@ -23,5 +25,14 @@ export const createApp = ViteSSG(
   (ctx) => {
     // install all modules under `modules/`
     Object.values(import.meta.globEager('./modules/*.ts')).map(i => i.install?.(ctx))
+    ctx.app.use(DiscordMessageComponents, {
+      profiles: {
+        sanc: {
+          author: 'Sanc',
+          avatar: 'https://i.imgur.com/0TeacfY.png',
+          roleColor: '#0099ff',
+        },
+      },
+    })
   },
 )

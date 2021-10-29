@@ -4,16 +4,22 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CarbonAddFilled: typeof import('~icons/carbon/add-filled')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
     CarbonLanguage: typeof import('~icons/carbon/language')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
-    CarbonPedestrian: typeof import('~icons/carbon/pedestrian')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
+    ClarityRemoveSolid: typeof import('~icons/clarity/remove-solid')['default']
+    Creater: typeof import('./components/embeder/Creater.vue')['default']
+    Embed: typeof import('./components/embeder/Embed.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    Previewer: typeof import('./components/embeder/Previewer.vue')['default']
     README: typeof import('./components/README.md')['default']
+    Tab: typeof import('./components/ui/Tab.vue')['default']
+    Tabs: typeof import('./components/ui/Tabs.vue')['default']
+    ViewWrapper: typeof import('./components/embeder/ViewWrapper.vue')['default']
   }
 }
 
