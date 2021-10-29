@@ -1,83 +1,56 @@
 import { PasteRule, PasteRuleFinder, Node } from '@tiptap/core'
-import { DOMParser, Fragment, Slice } from 'prosemirror-model'
-import { Plugin } from 'prosemirror-state'
+import { DOMParser, Fragment, Slice, Schema } from 'prosemirror-model'
+import { Plugin, Selection } from 'prosemirror-state'
 
 const emoteRx = /\<\:\w*\:(\d*)\>/g
 
-function nodePasteRule(regexp, type, getAttrs) {
-  const handler = (fragment) => {
-    const nodes = []
-
-    fragment.forEach((child) => {
-      if (child.isText) {
-        const { text } = child
-        let pos = 0
-        let match
-
-        // eslint-disable-next-line
-          while ((match = regexp.exec(text)) !== null) {
-          if (match[0]) {
-            const start = match.index
-            const end = start + match[0].length
-            const attrs = getAttrs instanceof Function ? getAttrs(match) : getAttrs
-
-            // adding text before markdown to nodes
-            if (start > 0)
-              nodes.push(child.cut(pos, start))
-
-            // create the node
-            nodes.push(type.create(attrs))
-
-            pos = end
-          }
-        }
-
-        // adding rest of text to nodes
-        if (pos < text.length)
-          nodes.push(child.cut(pos))
-      }
-      else {
-        nodes.push(child.copy(handler(child.content)))
-      }
-    })
-
-    return Fragment.fromArray(nodes)
-  }
-
+const pasteEmote = () => {
   return new Plugin({
     props: {
-      transformPasted: slice => new Slice(handler(slice.content), slice.openStart, slice.openEnd),
-    },
-  })
-}
+      handlePaste(view, event, slice) {
+        const items = Array.from(event.clipboardData?.items || [])
+        const { schema }: {schema: Schema} = view.state
 
-function emotePasteRule(config: {
-  find: PasteRuleFinder
-  replace: string
-}) {
-  return new PasteRule({
-    find: config.find,
-    handler: ({ state, range, match }) => {
-      const { selection } = state
-      let insert = config.replace
-      const start = range.from
-      const end = range.to
+        items.forEach((item) => {
+          item.getAsString((str) => {
+            const matches = emoteRx.exec(str)
+            if (matches && matches[1]) {
+              event.preventDefault()
+              const match = matches[1]
 
-      // Regex group
-      const newText = emoteRx.exec(match[0])
-      if (newText) {
-        insert = `https://cdn.discordapp.com/emojis/${newText[1]}`
-        const img = document.createElement('img')
-        img.src = insert
-        img.width = 64
-        img.height = 64
+              // Create image
+              const node = schema.nodes.image.create({
+                src: `https://cdn.discordapp.com/emojis/${match}?size=32`,
+                title: str,
+              })
 
-        const slice = DOMParser.fromSchema(state.schema).parseSlice(img)
-        // state.tr.replace(start, end, slice)
-        state.tr.insert(selection.head, slice.content)
-      }
+              // Insert image into document
+              const node2 = schema.nodes.span.create({})
 
-      // state.tr.replace(start, end, ) //.insertText(insert, start, end)
+              const transact = view.state.tr.insert(view.state.selection.head, node)
+              view.dispatch(transact)
+
+              // Basically a bunch of stuff to force the cursor to the right side
+              // of the image and add a space, as it is impossible to move it there manually
+              let selection = Selection.atEnd(view.state.doc)
+              let tr = view.state.tr.setSelection(selection)
+              let state = view.state.apply(tr)
+              view.updateState(state)
+
+              view.dispatch(view.state.tr.insert(selection.head, node2))
+
+              selection = Selection.atEnd(view.state.doc)
+              tr = view.state.tr.setSelection(selection)
+              state = view.state.apply(tr)
+              view.updateState(state)
+
+              view.dispatch(tr.insertText(' '))
+            }
+          })
+        })
+
+        return true
+      },
     },
   })
 }
@@ -99,52 +72,11 @@ const DiscordEmotes = Node.create({
       { tag: 'img[src]' },
     ]
   },
-  addPasteRules() {
+  addProseMirrorPlugins() {
     return [
-      nodePasteRule(emoteRx, this.type, match => {
-        src: `https://cdn.discordapp.com/emojis/${match[1]}`,
-      })
+      pasteEmote(),
     ]
   },
 })
-
-/* const DiscordEmotes = Mark.create({
-  name: 'discordEmotes',
-  renderHTML({ HTMLAttributes }: { HTMLAttributes: any }) {
-    return ['img', HTMLAttributes, 0]
-  },
-  addAttributes() {
-    return {
-      src: {
-        default: null,
-      },
-      width: { default: '16px' },
-      height: { default: '16px' },
-      style: { default: 'display: inline' },
-    }
-  },
-  parseHTML() {
-    return [
-      { tag: 'img[src]' },
-    ]
-  },
-  addPasteRules() {
-    return [
-      markPasteRule({
-        find: emoteRx,
-        type: this.type,
-        getAttributes: match => ({
-          src: `https://cdn.discordapp.com/emojis/${match[1]}`,
-        }),
-      }),
-    ]
-  },
-})
-*/
 
 export default DiscordEmotes
-
-/* emotePasteRule({
-        find: emoteRx,
-        replace: 'k',
-      }), */

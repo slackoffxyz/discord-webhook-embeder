@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-const content = ref('<p></p>')
+const content = ref('')
+
+const log = () => {
+  console.log(content.value)
+}
 </script>
 
 <template>
@@ -20,7 +24,10 @@ const content = ref('<p></p>')
         Create Webhook
       </router-link>
       <br />
-      <!--<ReactField v-model="content" class="border-emb-dark-900 mt-5 bg-emb-dark-700 p-2" />-->
+      <!--<ReactField v-model="content" class="border-emb-dark-900 mt-5 bg-emb-dark-700 p-2" /><br />
+      <button @click="log">
+        k
+      </button>-->
     </div>
   </div>
 </template>

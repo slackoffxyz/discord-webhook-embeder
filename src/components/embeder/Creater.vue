@@ -18,8 +18,11 @@ const color = ref<number | undefined>()
 const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
   let desc = ''
   const reactions = ogR ?? reacts.value
-  for (let i = 0; i < reactions.length; i++)
-    desc += `${reactions[i]}\n`
+  for (let i = 0; i < reactions.length; i++) {
+    const obj = reactions[i] as any
+    desc += `${getRealFromJson(obj)}\n`
+  }
+  console.log(desc)
 
   const hook: DiscordEmbed = {
     title: og?.title ?? title.value,
@@ -75,6 +78,29 @@ const submit = async() => {
 const emoteUrl = (id) => {
   return `https://cdn.discordapp.com/emojis/${id}`
 }
+
+const getRealFromJson = (src: any) => {
+  const list = src.content
+  if (!list || list instanceof String || typeof list === 'string') return list
+
+  let output = ''
+  for (let i = 0; i < list.length; i++) {
+    const obj = list[i]
+    if (obj.type === 'image') {
+      output += obj.attrs?.title
+    }
+    else if (obj.type === 'span') {
+      if (obj.content) {
+        obj.content.forEach((el: any) => {
+          if (el.type === 'text')
+            output += el.text
+        })
+      }
+    }
+  }
+
+  return output.trimStart()
+}
 </script>
 
 <template>
@@ -120,12 +146,13 @@ const emoteUrl = (id) => {
         <clarity-remove-solid class="hover:text-red-600 cursor-pointer" @click="remReact" />
       </div>
       <div v-for="(itm, index) in reacts" :key="index">
-        <input
+        <!--<input
           v-model="reacts[index]"
           class="mt-2 pr-8 bg-emb-dark-800 border-emb-dark-900 focus:border-blurple shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           placeholder="React"
-        />
+        />-->
+        <ReactField v-model="reacts[index]" class="mt-2 bg-emb-dark-800 border-emb-dark-900 focus:border-blurple shadow appearance-none border rounded w-full text-gray-300 leading-tight focus:outline-none focus:shadow-outline" />
       </div>
       <button v-if="!loading" class="bg-blue-500 hover:bg-blue-600 p-2 font-bold mt-5 rounded-sm" @click="submit">
         Send
