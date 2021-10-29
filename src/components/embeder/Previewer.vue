@@ -33,6 +33,16 @@ const args = {
   image: props.embed.image?.url,
   borderColor: compColor.value,
 }
+
+const emoteRx = /\<\:\w*\:(\d*)\>/g
+const imgRep = (desc?: string) => {
+  if (!desc) return ''
+  const emoteMatches = emoteRx.exec(desc)
+  return desc.replaceAll(emoteRx, (substr, arg1) => {
+    const url = `https://cdn.discordapp.com/emojis/${arg1}`
+    return `<img src="${url}" style="width:16px; height: auto;display: inline;" class="mr-1 ml-1"/>`
+  })
+}
 </script>
 
 <template>
@@ -46,7 +56,10 @@ const args = {
             :image="props.embed.image?.url"
             :border-color="compColor"
           >
-            {{ props.embed.description }}
+            <span
+              class="flex flex-row items-center"
+              v-html="imgRep(props.embed.description)"
+            ></span>
           </DiscordEmbed>
         </template>
       </DiscordMessage>

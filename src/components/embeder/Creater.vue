@@ -22,7 +22,6 @@ const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
     const obj = reactions[i] as any
     desc += `${getRealFromJson(obj)}\n`
   }
-  console.log(desc)
 
   const hook: DiscordEmbed = {
     title: og?.title ?? title.value,
