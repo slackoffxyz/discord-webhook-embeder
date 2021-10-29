@@ -125,7 +125,7 @@ const submit = async() => {
           placeholder="React"
         />
       </div>
-      <button class="bg-blue-500 hover:bg-blue-600 p-2 font-bold mt-5" @click="submit">
+      <button class="bg-blue-500 hover:bg-blue-600 p-2 font-bold mt-5 rounded-sm" @click="submit">
         Send
       </button>
     </div>
