@@ -49,10 +49,13 @@ specifiers:
   vite-plugin-windicss: ^1.4.12
   vite-ssg: ^0.15.5
   vue: ^3.2.20
+  vue-color-kit: ^1.0.5
   vue-demi: ^0.11.4
   vue-i18n: ^9.1.9
   vue-router: ^4.0.12
+  vue-swatches: ^2.1.1
   vue-tsc: ^0.28.7
+  vue3-swatches: ^1.0.5
 
 dependencies:
   '@discord-message-components/vue': 0.2.1_vue@3.2.20
@@ -74,9 +77,12 @@ dependencies:
   prism-theme-vars: 0.2.2
   sweetalert2: 11.1.9
   vue: 3.2.20
+  vue-color-kit: 1.0.5_vue@3.2.20
   vue-demi: 0.11.4_vue@3.2.20
   vue-i18n: 9.1.9_vue@3.2.20
   vue-router: 4.0.12_vue@3.2.20
+  vue-swatches: 2.1.1
+  vue3-swatches: 1.0.5_vue@3.2.20
 
 devDependencies:
   '@antfu/eslint-config': 0.10.0_eslint@8.0.1+typescript@4.4.4
@@ -7223,6 +7229,14 @@ packages:
       vscode-typescript-languageservice: 0.28.7
     dev: true
 
+  /vue-color-kit/1.0.5_vue@3.2.20:
+    resolution: {integrity: sha512-PUQzqdpI7672YYuoHdTLENHldieVMis0u9g2n7NAxiLGdiaqCD/QaYtbDOvtASpN5oSIfKxQgPV+i45MOlkKnw==}
+    peerDependencies:
+      vue: ^3.0.5
+    dependencies:
+      vue: 3.2.20
+    dev: false
+
   /vue-demi/0.11.4_vue@3.2.20:
     resolution: {integrity: sha512-/3xFwzSykLW2HiiLie43a+FFgNOcokbBJ+fzvFXd0r2T8MYohqvphUyDQ8lbAwzQ3Dlcrb1c9ykifGkhSIAk6A==}
     engines: {node: '>=12'}
@@ -7278,6 +7292,10 @@ packages:
       vue: 3.2.20
     dev: false
 
+  /vue-swatches/2.1.1:
+    resolution: {integrity: sha512-YugkNbByxMz1dnx1nZyHSL3VSf/TnBH3/NQD+t8JKxPSqUmX87sVGBxjEaqH5IMraOLfVmU0pHCHl2BfXNypQg==}
+    dev: false
+
   /vue-tsc/0.28.7_typescript@4.4.4:
     resolution: {integrity: sha512-s3H29Aa2PVpJ0EKPGKllTIwgmcOTNe+Uo3jHkX+F+wSYBmVLt7ZHeYJD5K35PwM6QZ2ryKcaDn5cDIq683Gb1g==}
     hasBin: true
@@ -7296,6 +7314,15 @@ packages:
       '@vue/runtime-dom': 3.2.20
       '@vue/server-renderer': 3.2.20_vue@3.2.20
       '@vue/shared': 3.2.20
+    dev: false
+
+  /vue3-swatches/1.0.5_vue@3.2.20:
+    resolution: {integrity: sha512-J+VFa7a/NeBxD87V/XnUNDuUkmU298f2u81r0v6CsXHBRfALhPHgYCDZ1lvYSXKUvCNZ5ZNdjM4lMiCW5uRS1A==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.0.5
+    dependencies:
+      vue: 3.2.20
     dev: false
 
   /w3c-hr-time/1.0.2:

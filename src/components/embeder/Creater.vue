@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { useAxios } from '@vueuse/integrations/useAxios'
 import Swal from 'sweetalert2'
+import VSwatches from 'vue3-swatches'
+
+// Import the styles too, typically in App.vue or main.js
+import '~/styles/swatches.css'
 import { DiscordEmbed } from '~/types/DiscordEmbed'
 
 defineProps<{ modelValue: DiscordEmbed | undefined }>()
@@ -13,7 +17,14 @@ const title = ref('')
 const webhook = ref('')
 const image = ref<string | undefined>()
 const reacts = ref<any[]>([{}])
-const color = ref<number | undefined>()
+const color = ref('#00ffff')
+
+const convertColor = () => {
+  const newCol = color.value.replace('#', '')
+  const dec = parseInt(newCol, 16)
+
+  return dec
+}
 
 const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
   let desc = ''
@@ -29,7 +40,7 @@ const getEmbed = (og?: DiscordEmbed, ogR?: string[]) => {
     image: {
       url: og?.image?.url ?? image.value,
     },
-    color: og?.color ?? color.value,
+    color: og?.color ?? convertColor(),
   }
 
   emit('update:modelValue', hook)
@@ -47,7 +58,8 @@ const remReact = () => {
 // Watchers
 watch(title, (n) => { getEmbed({ title: n }) })
 watch(image, (n) => { getEmbed({ image: { url: n } }) })
-watch(reacts, (n) => { getEmbed({}, n) })
+watch(reacts, (n) => { getEmbed({}, n) }, { deep: true })
+watch(color, (n) => { getEmbed({ color: convertColor() }) })
 
 const submit = async() => {
   loading.value = true
@@ -128,13 +140,15 @@ const getRealFromJson = (src: any) => {
         placeholder="Image URL"
       >
     </div>
-    <div class="mb-4 flex mx-auto flex-col w-full">
-      <input
+    <div class="mb-4 flex mx-auto flex-row w-full items-center">
+      <v-swatches
         v-model="color"
-        class="mt-2 pr-8 bg-emb-dark-800 border-emb-dark-900 focus:border-blurple shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-        type="number"
-        placeholder="Color"
-      >
+        show-fallback
+        fallback-input-type="color"
+        popover-x="left"
+        swatches="text-advanced"
+      ></v-swatches>
+      <span class="ml-2 text-xl -mt-2 text-gray-300">Colour</span>
     </div>
     <div class="mb-4 flex mx-auto flex-col w-full">
       <div class="flex flex-row justify-center items-center">
@@ -162,3 +176,9 @@ const getRealFromJson = (src: any) => {
     </div>
   </div>
 </template>
+
+<style>
+.vue-swatches__trigger__wrapper {
+  @apply w-full;
+}
+</style>
