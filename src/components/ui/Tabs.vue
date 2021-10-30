@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, ref } from 'vue'
-const tabs = ref([])
+const tabs = ref<any[]>([])
 const activeTab = ref('')
 provide('tabs', tabs)
 provide('activeTab', activeTab)
