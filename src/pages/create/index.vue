@@ -1,5 +1,6 @@
-<script lang="ts" setup>
-const embed = ref<any>()
+<script lang="ts" setup>import { DiscordEmbed } from '~/types/DiscordEmbed'
+
+const embed = ref<DiscordEmbed>()
 
 </script>
 
