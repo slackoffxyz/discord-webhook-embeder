@@ -12,11 +12,11 @@ This will allow you to use any emotes you have access to in your embeds.
 ## Screenshots
 Editor
 
-![Editor Screenshot](https://s3.us-west-2.amazonaws.com/cdn.bizzy.live/store/9c051552-800b-48f2-98a3-5658d3bff20b)
+![Editor Screenshot](https://github.com/slackoffxyz/discord-webhook-embeder/blob/main/readme/createPreview.png?raw=true)
 
 Embed Message
 
-![Embed Screenshot](https://s3.us-west-2.amazonaws.com/cdn.bizzy.live/store/ce44eed8-94dc-47b9-a8bd-61b3d8e996cd)
+![Embed Screenshot](https://github.com/slackoffxyz/discord-webhook-embeder/blob/main/readme/embedPreview.png?raw=true)
 
 --------------------
 
@@ -26,10 +26,10 @@ Retrieving emote codes is a little more difficult, as Discord does not provide a
 I've done so with the help of a bot I created.
 Simply find the bot on Discord and DM it the command `/emote (emote here)`, like so:
 
-![Bot Command](https://s3.us-west-2.amazonaws.com/cdn.bizzy.live/store/a67d1594-be40-48a1-820b-4411fa94352e)
+![Bot Command](https://github.com/slackoffxyz/discord-webhook-embeder/blob/main/readme/commandPreview.png?raw=true)
 
 -----------------------
 
 ### Bot details(`BizzTheMemeBot#9418`):
 
-![Bot ID](https://s3.us-west-2.amazonaws.com/cdn.bizzy.live/store/b2a5004e-17dc-461e-9325-53f97fa5f873)
+![Bot ID](https://github.com/slackoffxyz/discord-webhook-embeder/blob/main/readme/botName.png?raw=true)
