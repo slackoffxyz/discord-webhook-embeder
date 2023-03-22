@@ -2,7 +2,7 @@ import { PasteRule, PasteRuleFinder, Node } from '@tiptap/core'
 import { DOMParser, Fragment, Slice, Schema } from 'prosemirror-model'
 import { Plugin, Selection } from 'prosemirror-state'
 
-const emoteRx = /\<\:\w*\:(\d*)\>/g
+const emoteRx = /\<\w?\:\w*\:(\d*)\>/g
 
 const pasteEmote = () => {
   return new Plugin({
